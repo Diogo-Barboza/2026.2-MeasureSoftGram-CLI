@@ -38,11 +38,7 @@ jobs:
           python -m build
 
       - name: Rodar testes e gerar cobertura
-        run: tox
-
-      - name: Ajustar caminhos no coverage.xml
-        run: |
-          sed -i "s#<source>${GITHUB_WORKSPACE}</source>#<source>/github/workspace</source>#g" coverage.xml 2>/dev/null || true
+        run: tox -e test_cli
 
       - name: Scanner do SonarCloud
         if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
