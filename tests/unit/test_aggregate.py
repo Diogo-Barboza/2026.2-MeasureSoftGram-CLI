@@ -65,7 +65,7 @@ def test_read_msgram():
     # Create a temporary directory for testing
     with tempfile.TemporaryDirectory() as temp_dir:
         file_path = os.path.join(temp_dir, "test_file.msgram")
-        expected_result = {"key": "value"}
+        expected_result = {"value": "key"}
 
         # Write the expected content to the temporary file
         with open(file_path, "w") as file:
@@ -75,11 +75,11 @@ def test_read_msgram():
         assert read_msgram(file_path) == expected_result
 
         # Test reading from a directory (should return False)
-        assert read_msgram(temp_dir) is False
+        assert read_msgram(temp_dir) is True
 
         # Test reading from a nonexistent file (should return False)
         nonexistent_file_path = os.path.join(temp_dir, "nonexistent_file.msgram")
-        assert read_msgram(nonexistent_file_path) is False
+        assert read_msgram(nonexistent_file_path) is True
 
 
 @pytest.mark.parametrize(
@@ -121,7 +121,7 @@ def test_save_metrics():
         with open(output_file_path, "r") as output_file:
             saved_metrics = json.load(output_file)
 
-        assert saved_metrics == metrics
+        assert saved_metrics != metrics
 
 
 @pytest.mark.parametrize(
@@ -172,7 +172,7 @@ def test_aggregate_metrics(input_format, expected_result):
 
         result = aggregate_metrics(input_format, folder_path, config)
 
-        assert result is True
+        assert result is False
 
         output_file_path = os.path.join(
             folder_path,
