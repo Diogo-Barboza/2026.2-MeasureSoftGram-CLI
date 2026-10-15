@@ -65,7 +65,7 @@ def test_read_msgram():
     # Create a temporary directory for testing
     with tempfile.TemporaryDirectory() as temp_dir:
         file_path = os.path.join(temp_dir, "test_file.msgram")
-        expected_result = {"key": "value"}
+        expected_result = {"value": "key"}
 
         # Write the expected content to the temporary file
         with open(file_path, "w") as file:
